@@ -1,5 +1,6 @@
 import {ChangeEvent, FormEvent, useEffect, useState} from "react";
 import {Sandwich} from "../model/Sandwich";
+import "./CreateSandwich.css"
 
 type CreateSandwichProps = {
     addSandwich: (description: Sandwich) => void
@@ -54,24 +55,16 @@ export default function CreateSandwich(props: CreateSandwichProps) {
     * TODO: Aufgabe 1 -> Erstelle eine <form> mit der man alle Daten eines Burgers angeben kann
     **/
     return (
-        <div>
+        <div className={"newSandwich"}>
             <form onSubmit={handleSubmit}>
-{/*                <label>
-                    ID:
-                    <input type={"text"}
-                           value={sandwich.id}
-                           onChange={handleChange}
-                           name={"ID"}/>
-                </label>
-                <br/>*/}
-                <label>
+                <label className={"property"}>
                     Name:
                     <input type={"text"}
                            value={sandwich.name}
                            onChange={handleChange}
                            name={"name"}/>
                 </label>
-                <br/>
+                <br/><br/>
                 <label>
                     Bulette:
                     <input type={"text"}
@@ -79,7 +72,7 @@ export default function CreateSandwich(props: CreateSandwichProps) {
                     onChange={handleChange}
                     name={"patty"}/>
                 </label>
-                <br/>
+                <br/><br/>
                 <label>
                     Anzahl der Buletten:
                     <input type={"number"}
@@ -87,15 +80,15 @@ export default function CreateSandwich(props: CreateSandwichProps) {
                            onChange={handleChange}
                            name={"numberOfPatties"}/>
                 </label>
-                <br/>
+                <br/><br/>
                 <label>
-                    Brot gegrillt::
+                    Brot gegrillt:
                     <input type={"checkbox"}
                            checked={sandwich.grilled}
                            onChange={handleChange}
                            name={"grilled"}/>
                 </label>
-                <br/>
+                <br/><br/>
                 <label>
                     Extrawünsche:
                     <input type={"text"}
@@ -103,7 +96,7 @@ export default function CreateSandwich(props: CreateSandwichProps) {
                            onChange={handleChange}
                            name={"extraWishes"}/>
                 </label>
-                <br/>
+                <br/><br/>
                 {/* TODO: onClick hier entfernen und props.addSandwich in handleSubmit verschieben */}
                 <button type={"submit"}>Bestellung hinzufügen</button>
             </form>
