@@ -50,7 +50,7 @@ function App() {
         */}
 
                 {sandwiches.length === 0
-                    && <h3>Bitte bestellen Sie endlich mal, ich habe bald Feierabend und möchte nachhause gehen</h3>}
+                    && <h3>Bitte eine Bestellung hinzufügen</h3>}
 
                 <SandwichOverview sandwiches={sandwiches} deleteSandwich={deleteSandwich}/>
                 <CreateSandwich addSandwich={addSandwich}/>

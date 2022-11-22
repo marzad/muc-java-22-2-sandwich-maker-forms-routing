@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {ChangeEvent, FormEvent, useEffect, useState} from "react";
 import {Sandwich} from "../model/Sandwich";
 
 type CreateSandwichProps = {
@@ -18,15 +18,36 @@ export default function CreateSandwich(props: CreateSandwichProps) {
 
     const [sandwich, setSandwich] = useState(emptySandwichPlaceholder)
 
+
+    useEffect(()=>{
+        console.log(sandwich)
+    }, [sandwich])
+
     /*
     * TODO: Aufgabe 3 -> Erstelle eine handleSubmit(event: FormEvent<HTMLFormElement>) Funktion,
     *  die props.addSandwich aufruft und das neue Sandwich-Objekt als Parameter übergibt
     **/
 
+    function handleSubmit(event: FormEvent<HTMLFormElement>) {
+        event.preventDefault()
+        props.addSandwich(sandwich)
+        setSandwich(emptySandwichPlaceholder)
+    }
+
     /*
-    * TODO: Aufgabe 2 -> Erstelle eine handleChange(event: ChangeEvent<HTMLInputElement>) Funktion,
-    *  die Änderungen an der Form übernimmt und den Sandwich-State aktualisiert
-    **/
+   * TODO: Aufgabe 2 -> Erstelle eine handleChange(event: ChangeEvent<HTMLInputElement>) Funktion,
+   * die Änderungen an der Form übernimmt und den Sandwich-State aktualisiert
+   **/
+
+
+    function handleChange(event: ChangeEvent<HTMLInputElement>){
+        const fieldName = event.target.name
+        const fieldType = event.target.type
+        const fieldValue = fieldType !== "checkbox" ? event.target.value: event.target.checked
+
+        setSandwich(prevSandwich => ({
+            ...prevSandwich,[fieldName]: fieldValue}))
+    }
 
 
     /*
@@ -34,8 +55,58 @@ export default function CreateSandwich(props: CreateSandwichProps) {
     **/
     return (
         <div>
-            {/* TODO: onClick hier entfernen und props.addSandwich in handleSubmit verschieben */}
-            <button onClick={() => props.addSandwich(sandwich)}>Bestellung hinzufügen</button>
+            <form onSubmit={handleSubmit}>
+{/*                <label>
+                    ID:
+                    <input type={"text"}
+                           value={sandwich.id}
+                           onChange={handleChange}
+                           name={"ID"}/>
+                </label>
+                <br/>*/}
+                <label>
+                    Name:
+                    <input type={"text"}
+                           value={sandwich.name}
+                           onChange={handleChange}
+                           name={"name"}/>
+                </label>
+                <br/>
+                <label>
+                    Bulette:
+                    <input type={"text"}
+                    value={sandwich.patty}
+                    onChange={handleChange}
+                    name={"patty"}/>
+                </label>
+                <br/>
+                <label>
+                    Anzahl der Buletten:
+                    <input type={"number"}
+                           value={sandwich.numberOfPatties}
+                           onChange={handleChange}
+                           name={"numberOfPatties"}/>
+                </label>
+                <br/>
+                <label>
+                    Brot gegrillt::
+                    <input type={"checkbox"}
+                           checked={sandwich.grilled}
+                           onChange={handleChange}
+                           name={"grilled"}/>
+                </label>
+                <br/>
+                <label>
+                    Extrawünsche:
+                    <input type={"text"}
+                           value={sandwich.extraWishes}
+                           onChange={handleChange}
+                           name={"extraWishes"}/>
+                </label>
+                <br/>
+                {/* TODO: onClick hier entfernen und props.addSandwich in handleSubmit verschieben */}
+                <button type={"submit"}>Bestellung hinzufügen</button>
+            </form>
         </div>
     )
 
